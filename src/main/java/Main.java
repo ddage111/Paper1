@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("На сколько человек делить счет?");
         Scanner scanner = new Scanner(System.in);
+        scanner.useDelimiter("\n");
         int count = 0;
         while(count <= 1){
             try {
@@ -27,10 +28,10 @@ public class Main {
         }
         Calculator calc = new Calculator();
         do{
-            System.out.println("Введите наименование товара");
+            System.out.println("Введите наименование товара111");
             Goods goods = new Goods();
             goods.name = scanner.next();
-
+            
             System.out.println("Введите стоимость товара");
             double price = 0;
             while(price <= 0){
