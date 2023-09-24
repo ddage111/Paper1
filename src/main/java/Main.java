@@ -28,7 +28,7 @@ public class Main {
         }
         Calculator calc = new Calculator();
         do{
-            System.out.println("Введите наименование товара11");
+            System.out.println("Введите наименование товара");
             Goods goods = new Goods();
             goods.name = scanner.next();
             
