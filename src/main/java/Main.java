@@ -9,24 +9,24 @@ public class Main {
         System.out.println("На сколько человек делить счет?");
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
-        int count = 0;
-        while(count <= 1){
+        int countOfPeople = 0;
+        while(countOfPeople <= 1){
             try {
-                count = Integer.parseInt(scanner.next());
+                countOfPeople = Integer.parseInt(scanner.next());
             }catch (NumberFormatException | InputMismatchException exception){
                 System.out.println("Введены некоректные данные! Необходимо ввести целоечисленное значение");
                 continue;
             }
 
-            if(count == 1){
+            if(countOfPeople == 1){
                 System.out.println("Нечего делить. Количество должно быть больше 1");
-            }else if (count < 1){
+            }else if (countOfPeople < 1){
                 System.out.println("Некорректный ввод. Количество должно быть больше 1");
             }else{
                 break;
             }
         }
-        Calculator calc = new Calculator();
+        Calculator billCalculator = new Calculator();
         do{
             System.out.println("Введите наименование товара");
             Goods goods = new Goods();
@@ -37,15 +37,19 @@ public class Main {
             while(price <= 0){
                 try {
                     price = Double.parseDouble(scanner.next());
+                    if(price <= 0){
+                        System.out.println("Введены некоректные данные! Необходимо ввести число больше нуля");
+                        continue;
+                    }
                 }catch(NumberFormatException | InputMismatchException exception){
-                    System.out.println("Введены некоректные данные! Необходимо ввести число");
+                    System.out.println("Введены некоректные данные! Необходимо ввести число больше нуля");
                     continue;
                 }
             }
 
             goods.price = price;
 
-            calc.addGoods(goods);
+            billCalculator.addGoods(goods);
 
             System.out.println("Товар добавлен!");
 
@@ -55,13 +59,15 @@ public class Main {
             }
         }while(true);
 
+        scanner.close();
+
         System.out.println("Добавленные товары: ");
-        for (Goods goods: calc.goods) {
+        for (Goods goods: billCalculator.goods) {
             System.out.println(goods.name);
         }
-        double sumForEach = calc.sum / count;
+        double sumForEach = billCalculator.sum / countOfPeople;
         System.out.println(String.format("Общая сумма %.2f %s. Каждый должен заплатить %.2f %s",
-                calc.sum, calc.getRubleAddition((int)calc.sum), sumForEach, calc.getRubleAddition((int)sumForEach)));
+                billCalculator.sum, billCalculator.getRubleAddition((int)billCalculator.sum), sumForEach, billCalculator.getRubleAddition((int)sumForEach)));
     }
 }
 
